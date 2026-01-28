@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ilhom Ibrohimov - Asos Soluvchi</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .about-section {
+      padding: 120px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Section Header */
+    .section-header {
+      text-align: center;
+      margin-bottom: 80px;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    .section-title {
+      font-size: 48px;
+      font-weight: 800;
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, #00ff88, #fff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .section-subtitle {
+      font-size: 18px;
+      color: #b0b0b0;
+    }
+
+    /* Founder Profile Card */
+    .founder-card {
+      display: grid;
+      grid-template-columns: 450px 1fr;
+      gap: 60px;
+      background: linear-gradient(135deg, #1a1a1a, #0d0d0d);
+      border-radius: 30px;
+      padding: 50px;
+      margin-bottom: 60px;
+      border: 2px solid rgba(0, 255, 136, 0.2);
+      position: relative;
+      overflow: hidden;
+      animation: slideInLeft 0.8s ease;
+    }
+
+    .founder-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(0, 255, 136, 0.1), transparent);
+      animation: rotate 20s linear infinite;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Founder Image Side */
+    .founder-image-wrapper {
+      position: relative;
+      z-index: 1;
+    }
+
+    .founder-img-container {
+      position: relative;
+      border-radius: 25px;
+      overflow: hidden;
+      box-shadow: 0 30px 60px rgba(0, 255, 136, 0.3);
+      border: 3px solid #00ff88;
+      animation: floatImage 3s ease-in-out infinite;
+    }
+
+    @keyframes floatImage {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .founder-img {
+      width: 100%;
+      height: 550px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .founder-img-container:hover .founder-img {
+      transform: scale(1.1);
+    }
+
+    /* Badges on Image */
+    .founder-badge {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: #00ff88;
+      color: #0a0a0a;
+      padding: 12px 25px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 14px;
+      box-shadow: 0 10px 30px rgba(0, 255, 136, 0.5);
+      animation: pulse 2s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .experience-badge {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      padding: 15px 25px;
+      border-radius: 15px;
+      border: 1px solid rgba(0, 255, 136, 0.3);
+    }
+
+    .experience-badge .number {
+      font-size: 36px;
+      font-weight: 800;
+      color: #00ff88;
+      line-height: 1;
+    }
+
+    .experience-badge .label {
+      font-size: 12px;
+      color: #b0b0b0;
+      margin-top: 5px;
+    }
+
+    /* Founder Content Side */
+    .founder-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      z-index: 1;
+      animation: fadeInRight 0.8s ease 0.2s both;
+    }
+
+    .founder-name {
+      font-size: 42px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #00ff88, #fff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+    }
+
+    .founder-title {
+      font-size: 22px;
+      color: #00ff88;
+      font-weight: 600;
+      margin-bottom: 25px;
+      letter-spacing: 1px;
+    }
+
+    .founder-bio {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #b0b0b0;
+      margin-bottom: 30px;
+    }
+
+    .founder-highlights {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+
+    .highlight-tag {
+      background: rgba(0, 255, 136, 0.1);
+      border: 1px solid rgba(0, 255, 136, 0.3);
+      padding: 8px 18px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #00ff88;
+      transition: all 0.3s ease;
+    }
+
+    .highlight-tag:hover {
+      background: rgba(0, 255, 136, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .social-proof {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .proof-item {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 15px;
+      border-radius: 12px;
+      border-left: 3px solid #00ff88;
+      transition: all 0.3s ease;
+    }
+
+    .proof-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+      transform: translateX(5px);
+    }
+
+    .proof-icon {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .proof-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: #00ff88;
+      margin-bottom: 5px;
+    }
+
+    .proof-label {
+      font-size: 12px;
+      color: #b0b0b0;
+    }
+
+    /* Achievements Grid */
+    .achievements-section {
+      margin-top: 60px;
+      animation: fadeInUp 0.8s ease 0.4s both;
+    }
+
+    .achievements-title {
+      font-size: 32px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 40px;
+      color: #fff;
+    }
+
+    .achievements-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+    }
+
+    .achievement-card {
+      background: #1a1a1a;
+      padding: 30px 20px;
+      border-radius: 20px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .achievement-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, #00ff88, #00cc70);
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+
+    .achievement-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .achievement-card:hover {
+      transform: translateY(-10px);
+      border-color: #00ff88;
+      box-shadow: 0 20px 40px rgba(0, 255, 136, 0.2);
+    }
+
+    .achievement-icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+      display: inline-block;
+      animation: bounce 2s ease infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .achievement-number {
+      font-size: 36px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #00ff88, #fff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+
+    .achievement-label {
+      font-size: 14px;
+      color: #b0b0b0;
+      font-weight: 500;
+    }
+
+    /* Timeline Section */
+    .timeline-section {
+      margin-top: 80px;
+      animation: fadeInUp 0.8s ease 0.6s both;
+    }
+
+    .timeline-title {
+      font-size: 32px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 50px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, #00ff88, transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 40px;
+      padding: 25px;
+      background: #1a1a1a;
+      border-radius: 15px;
+      border-left: 3px solid #00ff88;
+      transition: all 0.3s ease;
+    }
+
+    .timeline-item:hover {
+      transform: translateX(10px);
+      box-shadow: 0 10px 30px rgba(0, 255, 136, 0.1);
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -28px;
+      top: 30px;
+      width: 12px;
+      height: 12px;
+      background: #00ff88;
+      border-radius: 50%;
+      border: 3px solid #0a0a0a;
+    }
+
+    .timeline-year {
+      font-size: 20px;
+      font-weight: 700;
+      color: #00ff88;
+      margin-bottom: 8px;
+    }
+
+    .timeline-title-item {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .timeline-desc {
+      font-size: 14px;
+      color: #b0b0b0;
+      line-height: 1.6;
+    }
+
+    /* Certifications */
+    .certifications {
+      margin-top: 60px;
+      padding: 40px;
+      background: linear-gradient(135deg, #1a1a1a, #0d0d0d);
+      border-radius: 20px;
+      border: 1px solid rgba(0, 255, 136, 0.2);
+      animation: fadeInUp 0.8s ease 0.8s both;
+    }
+
+    .cert-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .cert-item {
+      background: rgba(0, 255, 136, 0.05);
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 255, 136, 0.2);
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .cert-item:hover {
+      background: rgba(0, 255, 136, 0.1);
+      transform: scale(1.05);
+    }
+
+    .cert-icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .cert-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fadeInRight {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* Responsive */
+    @media(max-width: 1024px) {
+      .founder-card {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+      }
+
+      .achievements-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .cert-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media(max-width: 768px) {
+      .section-title {
+        font-size: 32px;
+      }
+
+      .founder-name {
+        font-size: 32px;
+      }
+
+      .achievements-grid,
+      .cert-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .social-proof {
+        grid-template-columns: 1fr;
+      }
+
+      .founder-img-container {
+        height: 400px;
+      }
+
+      .founder-img {
+        height: 400px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="about-section">
+    <!-- Section Header -->
+    <div class="section-header">
+      <h2 class="section-title">Asos Soluvchimiz</h2>
+      <p class="section-subtitle">Professional treyder va muvaffaqiyatli investor, biznesmen</p>
+    </div>
+
+    <!-- Founder Profile Card -->
+    <div class="founder-card">
+      <!-- Image Side -->
+      <div class="founder-image-wrapper">
+        <div class="founder-img-container">
+          <img class="founder-img" src="ilhomjon.jpg" alt="Ilhom Ibrohimov">
+          <div class="founder-badge">👑 Asos Soluvchi</div>
+          <div class="experience-badge">
+            <div class="number">7+</div>
+            <div class="label">YIL TAJRIBA</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Content Side -->
+      <div class="founder-content">
+        <h3 class="founder-name">Ilhomjon Ibrohimov</h3>
+        <p class="founder-title">CEO & Professional Trader | Impulse Invest / Biznesmen</p>
+        
+        <p class="founder-bio">
+          7+ yillik professional trading tajribasi bilan jahon moliya bozorlarida faol treyder va muvaffaqiyatli investor. 
+          O'zbekistonda trading ta'limini rivojlantirishga katta hissa qo'shgan va minglab odamlarning moliyaviy hayotini o'zgartirgan. 
+          FOREX, Cryptocurrency va Stock Markets bo'yicha milliy va xalqaro sertifikatlarga ega mutaxassis. 
+          YouTube kanalida 100,000+ obunachilar va Telegram guruhida 50,000+ a'zolar bilan faol ta'lim beradi.
+        </p>
+
+        <div class="founder-highlights">
+          <span class="highlight-tag">💰 $5M+ Trading Volume</span>
+          <span class="highlight-tag">🎓 5000+ O'quvchi</span>
+          <span class="highlight-tag">📊 85% Win Rate</span>
+          <span class="highlight-tag">🏅 50+ Sertifikat</span>
+          <span class="highlight-tag">▶️ 100K+ YouTube</span>
+          <span class="highlight-tag">✈️ 50K+ Telegram</span>
+        </div>
+
+        <div class="social-proof">
+          <div class="proof-item">
+            <div class="proof-icon">💵</div>
+            <div class="proof-value">$12M+</div>
+            <div class="proof-label">Jami Trading Hajmi</div>
+          </div>
+          <div class="proof-item">
+            <div class="proof-icon">📈</div>
+            <div class="proof-value">2847</div>
+            <div class="proof-label">Faol Treyderlar</div>
+          </div>
+          <div class="proof-item">
+            <div class="proof-icon">🎯</div>
+            <div class="proof-value">92%</div>
+            <div class="proof-label">O'quvchilar Muvaffaqiyati</div>
+          </div>
+          <div class="proof-item">
+            <div class="proof-icon">⭐</div>
+            <div class="proof-value">4.9/5</div>
+            <div class="proof-label">Reytingi</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Achievements Grid -->
+    <div class="achievements-section">
+      <h3 class="achievements-title">Yutuqlar va Natijalar</h3>
+      <div class="achievements-grid">
+        <div class="achievement-card">
+          <div class="achievement-icon">💰</div>
+          <div class="achievement-number">$5M+</div>
+          <div class="achievement-label">Trading Hajmi</div>
+        </div>
+        <div class="achievement-card">
+          <div class="achievement-icon">🎓</div>
+          <div class="achievement-number">5000+</div>
+          <div class="achievement-label">Ta'lim Olganlar</div>
+        </div>
+        <div class="achievement-card">
+          <div class="achievement-icon">📊</div>
+          <div class="achievement-number">85%</div>
+          <div class="achievement-label">Win Rate</div>
+        </div>
+        <div class="achievement-card">
+          <div class="achievement-icon">🏆</div>
+          <div class="achievement-number">50+</div>
+          <div class="achievement-label">Sertifikatlar</div>
+        </div>
+        <div class="achievement-card">
+          <div class="achievement-icon">▶️</div>
+          <div class="achievement-number">100K+</div>
+          <div class="achievement-label">YouTube Obuna</div>
+        </div>
+        <div class="achievement-card">
+          <div class="achievement-icon">✈️</div>
+          <div class="achievement-number">50K+</div>
+          <div class="achievement-label">Telegram A'zo</div>
+        </div>
+        <div class="achievement-card">
+          <div class="achievement-icon">🌍</div>
+          <div class="achievement-number">15+</div>
+          <div class="achievement-label">Davlatlar</div>
+        </div>
+        <div class="achievement-card">
+          <div class="achievement-icon">💼</div>
+          <div class="achievement-number">500+</div>
+          <div class="achievement-label">Kompaniyalar</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Career Timeline -->
+    <div class="timeline-section">
+      <h3 class="timeline-title">Martaba Yo'li</h3>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-year">2018</div>
+          <div class="timeline-title-item">🚀 Trading Sayohati Boshlandi</div>
+          <div class="timeline-desc">
+            FOREX bozorida birinchi muvaffaqiyatli tradelar. Demo hisobdan real hisobga o'tish va dastlabki foyda olish.
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2019</div>
+          <div class="timeline-title-item">📚 Birinchi Ta'lim Kursi</div>
+          <div class="timeline-desc">
+            50 ta o'quvchiga trading asoslarini o'rgatish. Ularning 80% muvaffaqiyatli natijaga erishdi.
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2020</div>
+          <div class="timeline-title-item">💎 Cryptocurrency Trading</div>
+          <div class="timeline-desc">
+            Bitcoin va altcoinlarda professional trading boshlanishi. Bull run paytida katta foyda olish.
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2021</div>
+          <div class="timeline-title-item">🏢 Impulse Invest Kompaniyasi</div>
+          <div class="timeline-desc">
+            Rasmiy kompaniya tashkil etish va professional jamoani yig'ish. 1000+ o'quvchi ta'lim oldi.
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2022</div>
+          <div class="timeline-title-item">🌐 Xalqaro Kengayish</div>
+          <div class="timeline-desc">
+            Xalqaro bozorlarga kirish va Rossiya, Qozog'iston, Tojikistonda o'quvchilar bilan ishlash.
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2023-2025</div>
+          <div class="timeline-title-item">🎯 Trading Akademiya</div>
+          <div class="timeline-desc">
+            To'liq trading akademiyasi yaratish. 5000+ o'quvchi, professional mentorlar jamoasi, zamonaviy ta'lim platformasi.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Certifications -->
+    <div class="certifications">
+      <h3 class="cert-title">Sertifikatlar va Malakalar</h3>
+      <div class="cert-grid">
+        <div class="cert-item">
+          <div class="cert-icon">📜</div>
+          <div class="cert-name">CMT - Chartered Market Technician</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-icon">📊</div>
+          <div class="cert-name">FOREX Professional Certification</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-icon">💰</div>
+          <div class="cert-name">Cryptocurrency Trading Expert</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-icon">🎓</div>
+          <div class="cert-name">Financial Risk Manager (FRM)</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-icon">📈</div>
+          <div class="cert-name">Technical Analysis Specialist</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-icon">🏆</div>
+          <div class="cert-name">International Trading License</div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <script>
+    // Intersection Observer for animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.achievement-card, .timeline-item, .cert-item').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'all 0.6s ease';
+      observer.observe(el);
+    });
+
+    // Counter animation
+    const counters = document.querySelectorAll('.achievement-number, .proof-value');
+    counters.forEach(counter => {
+      const updateCount = () => {
+        const target = counter.textContent;
+        const numMatch = target.match(/[\d.]+/);
+        if (!numMatch) return;
+        
+        const targetNum = parseFloat(numMatch[0]);
+        const suffix = target.replace(/[\d.]+/, '');
+        const duration = 2000;
+        const increment = targetNum / (duration / 16);
+        let current = 0;
+
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= targetNum) {
+            counter.textContent = targetNum + suffix;
+            clearInterval(timer);
+          } else {
+            counter.textContent = Math.floor(current) + suffix;
+          }
+        }, 16);
+      };
+
+      const obsCounter = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            updateCount();
+            obsCounter.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      obsCounter.observe(counter);
+    });
+
+    console.log('✅ Ilhom Ibrohimov bo\'limi yuklandi!');
+  </script>
+
+</body>
+</html>

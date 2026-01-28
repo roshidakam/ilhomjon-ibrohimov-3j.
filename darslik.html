@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bepul YouTube Darsliklar</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .youtube-section {
+      padding: 120px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    /* Background Decorations */
+    .bg-decoration {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.15;
+      z-index: 0;
+      animation: float 20s infinite ease-in-out;
+    }
+
+    .decoration-1 {
+      width: 400px;
+      height: 400px;
+      background: linear-gradient(135deg, #00ff88, #00cc70);
+      top: 10%;
+      left: -100px;
+      animation-delay: 0s;
+    }
+
+    .decoration-2 {
+      width: 350px;
+      height: 350px;
+      background: linear-gradient(135deg, #ff3366, #cc0033);
+      bottom: 20%;
+      right: -100px;
+      animation-delay: 2s;
+    }
+
+    .decoration-3 {
+      width: 300px;
+      height: 300px;
+      background: linear-gradient(135deg, #00ff88, #ff3366);
+      top: 50%;
+      right: 10%;
+      animation-delay: 4s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(30px, -30px) scale(1.1); }
+      50% { transform: translate(-20px, 20px) scale(0.9); }
+      75% { transform: translate(20px, 30px) scale(1.05); }
+    }
+
+    /* Section Header */
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+      position: relative;
+      z-index: 1;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 0, 0, 0.1);
+      border: 1px solid rgba(255, 0, 0, 0.3);
+      padding: 10px 25px;
+      border-radius: 50px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #ff0000;
+      animation: pulse 2s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .youtube-icon {
+      font-size: 24px;
+      animation: bounce 2s ease infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+/* 
+    .section-title {
+      font-size: 48px;
+      font-weight: 800;
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, #ff0000, #fff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    } */
+
+    .section-subtitle {
+      font-size: 18px;
+      color: #b0b0b0;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* YouTube Channel Card */
+    .channel-card {
+      background: linear-gradient(135deg, #1a1a1a, #0d0d0d);
+      border-radius: 30px;
+      padding: 50px;
+      margin-bottom: 60px;
+      border: 2px solid rgba(255, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      animation: slideInLeft 0.8s ease;
+    }
+
+    .channel-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(255, 0, 0, 0.1), transparent);
+      animation: rotate 20s linear infinite;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .channel-info {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      margin-bottom: 30px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .channel-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid #ff0000;
+      box-shadow: 0 10px 40px rgba(255, 0, 0, 0.4);
+      animation: floatImage 3s ease-in-out infinite;
+    }
+
+    @keyframes floatImage {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .channel-details h3 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .channel-stats {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      color: #b0b0b0;
+    }
+
+    .stat-number {
+      font-weight: 700;
+      color: #ff0000;
+    }
+
+    .subscribe-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #ff0000;
+      color: #fff;
+      padding: 15px 40px;
+      border: none;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 20px;
+      position: relative;
+      z-index: 1;
+    } 
+
+    .subscribe-btn:hover {
+      background: #cc0000;
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(255, 0, 0, 0.4);
+    }
+
+    /* Playlists Grid */
+    .playlists-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      margin-bottom: 60px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .playlist-card {
+      background: #1a1a1a;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    .playlist-card:nth-child(1) { animation-delay: 0.1s; }
+    .playlist-card:nth-child(2) { animation-delay: 0.2s; }
+    .playlist-card:nth-child(3) { animation-delay: 0.3s; }
+    .playlist-card:nth-child(4) { animation-delay: 0.4s; }
+/* 
+    .playlist-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, #ff0000, #ff6666);
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+
+    .playlist-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .playlist-card:hover {
+      transform: translateY(-10px);
+      border-color: #ff0000;
+      box-shadow: 0 20px 40px rgba(255, 0, 0, 0.2);
+    } */
+
+    .playlist-thumbnail {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+    }
+
+    .playlist-thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .playlist-card:hover .playlist-thumbnail img {
+      transform: scale(1.1);
+    }
+
+    .playlist-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* .play-icon {
+      width: 70px;
+      height: 70px;
+      background: rgba(255, 0, 0, 0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .playlist-card:hover .play-icon {
+      transform: scale(1.15);
+      background: #ff0000;
+    } */
+
+    .video-count {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+      background: rgba(0, 0, 0, 0.85);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .playlist-content {
+      padding: 25px;
+    }
+
+    .playlist-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .playlist-desc {
+      font-size: 14px;
+      color: #b0b0b0;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .topics-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .topic-tag {
+      background: rgba(255, 0, 0, 0.1);
+      border: 1px solid rgba(255, 0, 0, 0.3);
+      padding: 5px 12px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #ff6666;
+    }
+
+    .playlist-cta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #ff0000;
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .playlist-cta:hover {
+      gap: 15px;
+    }
+
+    /* Benefits Grid */
+    .benefits-section {
+      margin-top: 80px;
+      position: relative;
+      z-index: 1;
+      animation: fadeInUp 0.8s ease 0.5s both;
+    }
+
+    .benefits-title {
+      font-size: 36px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .benefit-card {
+      background: linear-gradient(135deg, #1a1a1a, #0d0d0d);
+      padding: 30px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .benefit-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(255, 0, 0, 0.1), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .benefit-card:hover::before {
+      opacity: 1;
+    }
+
+    .benefit-card:hover {
+      transform: translateY(-5px);
+      border-color: #ff0000;
+      box-shadow: 0 15px 40px rgba(255, 0, 0, 0.15);
+    }
+
+    .benefit-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+      display: inline-block;
+    }
+
+    .benefit-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .benefit-desc {
+      font-size: 14px;
+      color: #b0b0b0;
+      line-height: 1.6;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      margin-top: 80px;
+      text-align: center;
+      padding: 60px 40px;
+      background: linear-gradient(135deg, rgba(255, 0, 0, 0.05), rgba(255, 0, 0, 0.1));
+      border-radius: 30px;
+      border: 2px solid rgba(255, 0, 0, 0.2);
+      position: relative;
+      z-index: 1;
+      animation: fadeInUp 0.8s ease 0.7s both;
+    }
+
+    .cta-title {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .cta-desc {
+      font-size: 18px;
+      color: #b0b0b0;
+      margin-bottom: 30px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #ff0000;
+      color: #fff;
+      padding: 18px 45px;
+      border: none;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .cta-btn-primary:hover {
+      background: #cc0000;
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(255, 0, 0, 0.4);
+    }
+
+    .cta-btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      border: 2px solid #ff0000;
+      color: #ff0000;
+      padding: 16px 45px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .cta-btn-secondary:hover {
+      background: #ff0000;
+      color: #fff;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* Responsive */
+    @media(max-width: 1024px) {
+      .playlists-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .benefits-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media(max-width: 768px) {
+      .section-title {
+        font-size: 32px;
+      }
+
+      .channel-info {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .channel-stats {
+        justify-content: center;
+      }
+
+      .benefits-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+      }
+
+      .cta-btn-primary,
+      .cta-btn-secondary {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="youtube-section">
+    <!-- Background Decorations -->
+    <div class="bg-decoration decoration-1"></div>
+    <div class="bg-decoration decoration-2"></div>
+    <div class="bg-decoration decoration-3"></div>
+
+    <!-- Section Header -->
+    <div class="section-header">
+      <div class="section-badge">
+        <span class="youtube-icon">▶️</span>
+        BEPUL TA'LIM
+      </div>
+      <h2 class="section-title">YouTube Darsliklar</h2>
+      <p class="section-subtitle">
+        Ilhom Ibrohimov boshchiligida 100% bepul va professional trading darslari. 
+        Noldan boshlab professional treyderga aylaning!
+      </p>
+    </div>
+
+    <!-- YouTube Channel Card -->
+    <div class="channel-card">
+      <div class="channel-info">
+        <img class="channel-avatar" src="ilhomjon.jpg" alt="Ilhom Ibrohimov">
+        <div class="channel-details">
+          <h3>Ilhom Ibrohimov</h3>
+          <div class="channel-stats">
+            <div class="stat-item">
+              <span>👥</span>
+              <span class="stat-number">100K+</span>
+              <span>Obunachilar</span>
+            </div>
+            <div class="stat-item">
+              <span>📹</span>
+              <span class="stat-number">200+</span>
+              <span>Videolar</span>
+            </div>
+            <div class="stat-item">
+              <span>👁️</span>
+              <span class="stat-number">5M+</span>
+              <span>Ko'rishlar</span>
+            </div>
+          </div>
+          <button class="subscribe-btn" onclick="window.open('https://www.youtube.com/@ilhomjonibrokhimov', '_blank')">
+           
+           
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Playlists Grid -->
+    <div class="playlists-grid">
+      <!-- Playlist 1: Boshlang'ich -->
+      <div class="playlist-card">
+        <div class="playlist-thumbnail">
+            
+          <div class="playlist-overlay">
+            <div class="play-icon"></div>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/Qqf2J09xFFo?si=ogw4ZCnECYUThfps" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
+       
+        </div>
+        <div class="playlist-content">
+          <h3 class="playlist-title">Boshlang'ich Kurs - Trading Asoslari</h3>
+          <p class="playlist-desc">
+            Trading dunyosiga kirishingiz uchun zarur bo'lgan barcha asosiy bilimlar. 
+            Bozor nima, qanday ishlashi, terminologiya va birinchi qadamlar.
+          </p>
+          <div class="topics-list">
+            <span class="topic-tag">📚 Bozor Asoslari</span>
+            <span class="topic-tag">💰 Kapital Boshqaruv</span>
+            <span class="topic-tag">📊 Grafik O'qish</span>
+            <span class="topic-tag">🎯 Risk Menejment</span>
+          </div>
+          <a href="#" class="playlist-cta">
+            <span>Ko'rishni boshlash</span>
+            <span>→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Playlist 2: Technical Analysis -->
+      <div class="playlist-card">
+        <div class="playlist-thumbnail">
+          
+          <div class="playlist-overlay">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/qwvH-BJsAYU?si=b8gf-3WWTmWmusKu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
+        
+        </div>
+        <div class="playlist-content">
+          <h3 class="playlist-title">Technical Analysis - Texnik Tahlil</h3>
+          <p class="playlist-desc">
+            Grafiklarni professional darajada tahlil qilish. Indikatorlar, naqshlar, 
+            trend chiziqlari va bozor psixologiyasini tushunish.
+          </p>
+          <div class="topics-list">
+            <span class="topic-tag">📈 Candlestick</span>
+            <span class="topic-tag">📉 Indikatorlar</span>
+            <span class="topic-tag">🔍 Pattern</span>
+            <span class="topic-tag">⚡ Signallar</span>
+          </div>
+          <a href="#" class="playlist-cta">
+            <span>Ko'rishni boshlash</span>
+            <span>→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Playlist 3: Strategies -->
+      <div class="playlist-card">
+        <div class="playlist-thumbnail">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/yoDbPX2kn7I?si=R3-K-liwX4K0Weeo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <div class="playlist-overlay">
+            <div class="play-icon"></div>
+          </div>
+         
+        </div>
+        <div class="playlist-content">
+          <h3 class="playlist-title">Trading Strategiyalari</h3>
+          <p class="playlist-desc">
+            Ishlagan va sinab ko'rilgan strategiyalar. Scalping, Day Trading, Swing Trading 
+            va boshqa usullar bilan tanishing.
+          </p>
+          <div class="topics-list">
+            <span class="topic-tag">⚡ Scalping</span>
+            <span class="topic-tag">📊 Day Trading</span>
+            <span class="topic-tag">📈 Swing Trading</span>
+            <span class="topic-tag">💎 Position</span>
+          </div>
+          <a href="#" class="playlist-cta">
+            <span>Ko'rishni boshlash</span>
+            <span>→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Playlist 4: Psychology -->
+      <div class="playlist-card">
+        <div class="playlist-thumbnail">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/tAYZF4d0hRs?si=yJ6WJuaqlxJMF21j" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <div class="playlist-overlay">
+            <div class="play-icon">▶️</div>
+          </div>
+          <div class="video-count">📹 20 video</div>
+        </div>
+        <div class="playlist-content">
+          <h3 class="playlist-title">Trading Psixologiyasi</h3>
+          <p class="playlist-desc">
+            Muvaffaqiyatli treyderning eng muhim qismi - to'g'ri fikrlash. 
+            Emotsiyalarni boshqarish, sabr va distsiplina.
+          </p>
+          <div class="topics-list">
+            <span class="topic-tag">🧠 Mindset</span>
+            <span class="topic-tag">😌 Emotsiya</span>
+            <span class="topic-tag">💪 Distsiplina</span>
+            <span class="topic-tag">🎯 Maqsad</span>
+          </div>
+          <a href="#" class="playlist-cta">
+            <span>Ko'rishni boshlash</span>
+            <span>→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Benefits Section -->
+    <div class="benefits-section">
+      <h3 class="benefits-title">Nima o'rganasiz?</h3>
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="benefit-icon">📚</div>
+          <h4 class="benefit-title">Asosiy Bilimlar</h4>
+          <p class="benefit-desc">Trading dunyosiga kirish uchun zarur bo'lgan barcha asoslar</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">📊</div>
+          <h4 class="benefit-title">Texnik Tahlil</h4>
+          <p class="benefit-desc">Grafiklarni professional darajada o'qish va tahlil qilish</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">💰</div>
+          <h4 class="benefit-title">Pul Boshqaruvi</h4>
+          <p class="benefit-desc">Kapitalingizni xavfsiz va samarali boshqarish usullari</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">⚡</div>
+          <h4 class="benefit-title">Real Strategiyalar</h4>
+          <p class="benefit-desc">Ishlagan va sinab ko'rilgan trading strategiyalari</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">🧠</div>
+          <h4 class="benefit-title">Psixologiya</h4>
+          <p class="benefit-desc">Muvaffaqiyatli treyder bo'lish uchun to'g'ri mindset</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">🎯</div>
+          <h4 class="benefit-title">Amaliy Misollar</h4>
+          <p class="benefit-desc">Real trade misollar va jonli tahlillar</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="cta-section">
+      <h3 class="cta-title">Bugun o'rganishni boshlang!</h3>
+      <p class="cta-desc">
+        100+ video darslik, amaliy mashg'ulotlar va professional mentorlik bilan 
+        trading yo'lingizni boshlang. Hammasi bepul!
+      </p>
+      <div class="cta-buttons">
+        <button class="cta-btn-primary" onclick="window.open('https://www.youtube.com/@ilhomjonibrokhimov', '_blank')">
+          <span>▶️</span>
+          <span>YouTube'ga o'tish</span>
+        </button>
+        <button class="cta-btn-secondary" onclick="location.href='#contact'">
+          <span>✈️</span>
+          <span>Telegram Guruhga Qo'shilish</span>
+        </button>
+      </div>
+    </div>
+
+  </section>
+
+  <script>
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Observe all animated elements
+    document.querySelectorAll('.playlist-card, .benefit-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'all 0.6s ease';
+      observer.observe(el);
+    });
+
+    // Play button animation
+    document.querySelectorAll('.play-icon').forEach(btn => {
+      btn.addEventListener('mouseenter', () => {
+        btn.style.transform = 'scale(1.2) rotate(90deg)';
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = 'scale(1) rotate(0deg)';
+      });
+    });
+
+    // Playlist card click
+    document.querySelectorAll('.playlist-card').forEach(

@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../mustaqil"
+		},
+		{
+			"path": "../it time academy 2"
+		},
+		{
+			"path": "../it time academy 5"
+		},
+		{
+			"path": "../Новая папка"
+		},
+		{
+			"path": "../impact technology"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "impuls invest"
+	}
+}

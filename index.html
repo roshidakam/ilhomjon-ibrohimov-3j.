@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Impulse Invest - Professional Trading</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --black: #0a0a0a;
+      --white: #ffffff;
+      --green: #00ff88;
+      --red: #ff3366;
+      --gray: #1a1a1a;
+      --light-gray: #2a2a2a;
+      --text-gray: #b0b0b0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Scroll Progress */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--green), var(--red));
+      z-index: 9999;
+      transition: width 0.1s ease;
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      z-index: 999;
+      transition: all 0.3s ease;
+    }
+
+    .nav {
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      
+    }
+
+    .logo-img {
+      width: 100px;
+      height: 100px;
+     
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--white);
+    }
+
+    .logo-text {
+      font-size: 24px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--green), var(--white));
+     
+      -webkit-text-fill-color: transparent;
+    }
+
+    .menu {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .nav-link {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--green);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .cta-btn {
+      background: linear-gradient(135deg, var(--green), #00cc70);
+      color: var(--black);
+      padding: 12px 30px;
+      border-radius: 50px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+    }
+
+    .burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+
+    .burger span {
+      width: 30px;
+      height: 3px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      opacity: 0.1;
+      background: 
+        radial-gradient(circle at 20% 30%, var(--green), transparent 40%),
+        radial-gradient(circle at 80% 70%, var(--red), transparent 40%);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 255, 136, 0.1);
+      border: 1px solid rgba(0, 255, 136, 0.3);
+      padding: 8px 20px;
+      border-radius: 50px;
+      margin-bottom: 25px;
+      animation: pulse 2s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    .hero-title {
+      font-size: 58px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 25px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, var(--green), var(--white));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      font-size: 18px;
+      color: var(--text-gray);
+      line-height: 1.8;
+      margin-bottom: 40px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 50px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--green), #00cc70);
+      color: var(--black);
+      padding: 16px 40px;
+      border-radius: 50px;
+      border: none;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(0, 255, 136, 0.4);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 2px solid var(--white);
+      color: var(--white);
+      padding: 14px 40px;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      background: var(--white);
+      color: var(--black);
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .stat-box {
+      text-align: center;
+      padding: 25px;
+      background: var(--gray);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .stat-box:hover {
+      transform: translateY(-5px);
+      border-color: var(--green);
+      box-shadow: 0 10px 30px rgba(0, 255, 136, 0.1);
+    }
+
+    .stat-number {
+      font-size: 42px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--green), var(--white));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: var(--text-gray);
+    }
+
+    .hero-image {
+      position: relative;
+    }
+
+    .hero-img {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .trading-card {
+      position: absolute;
+      background: var(--gray);
+      padding: 20px;
+      border-radius: 16px;
+      border: 1px solid rgba(0, 255, 136, 0.2);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .card-1 {
+      top: 10%;
+      left: -50px;
+      animation: float 3s ease infinite;
+    }
+
+    .card-2 {
+      bottom: 10%;
+      right: -50px;
+      animation: float 3s ease infinite 1.5s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .card-title {
+      font-size: 12px;
+      color: var(--text-gray);
+      margin-bottom: 8px;
+    }
+
+    .card-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--green);
+    }
+
+    /* About */
+    .about {
+      padding: 120px 0;
+      position: relative;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-title {
+      font-size: 48px;
+      font-weight: 800;
+      margin-bottom: 15px;
+    }
+
+    .section-subtitle {
+      font-size: 18px;
+      color: var(--text-gray);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-image {
+      position: relative;
+    }
+
+    .about-img {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    .about-badge {
+      position: absolute;
+      bottom: 30px;
+      right: 30px;
+      background: var(--green);
+      color: var(--black);
+      padding: 15px 25px;
+      border-radius: 50px;
+      font-weight: 700;
+      box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+    }
+
+    .feature-list {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .feature-item {
+      display: flex;
+      gap: 20px;
+      padding: 25px;
+      background: var(--gray);
+      border-radius: 16px;
+      border-left: 4px solid var(--green);
+      transition: all 0.3s ease;
+    }
+
+    .feature-item:hover {
+      transform: translateX(10px);
+      border-left-color: var(--red);
+    }
+
+    .feature-icon {
+      font-size: 40px;
+      line-height: 1;
+    }
+
+    .feature-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .feature-desc {
+      font-size: 15px;
+      color: var(--text-gray);
+      line-height: 1.6;
+    }
+
+    /* Services */
+    .services {
+      padding: 120px 0;
+      background: var(--gray);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .service-card {
+      background: var(--black);
+      padding: 40px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(0, 255, 136, 0.1), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .service-card:hover::before {
+      opacity: 1;
+    }
+
+    .service-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--green);
+    }
+
+    .service-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, var(--green), #00cc70);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      margin-bottom: 25px;
+    }
+
+    .service-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .service-desc {
+      font-size: 15px;
+      color: var(--text-gray);
+      line-height: 1.7;
+      margin-bottom: 25px;
+    }
+
+    .service-features {
+      list-style: none;
+      margin-bottom: 25px;
+    }
+
+    .service-features li {
+      padding: 8px 0;
+      font-size: 14px;
+      color: var(--text-gray);
+      position: relative;
+      padding-left: 25px;
+    }
+
+    .service-features li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .learn-more {
+      color: var(--green);
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .learn-more:hover {
+      gap: 15px;
+    }
+
+    /* Why Us */
+    .why-us {
+      padding: 120px 0;
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+    }
+
+    .why-card {
+      background: var(--gray);
+      padding: 40px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .why-card:hover {
+      border-color: var(--green);
+      transform: translateY(-5px);
+    }
+
+    .why-number {
+      font-size: 48px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--green), var(--red));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+    }
+
+    .why-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .why-desc {
+      font-size: 15px;
+      color: var(--text-gray);
+      line-height: 1.7;
+    }
+
+    /* Students */
+    .students {
+      padding: 120px 0;
+      background: var(--gray);
+    }
+
+    .students-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .student-card {
+      background: var(--black);
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .student-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--green);
+    }
+
+    .student-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      background: linear-gradient(135deg, var(--green), var(--red));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+    }
+
+    .student-name {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .student-profit {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--green);
+      margin-bottom: 15px;
+    }
+
+    .student-desc {
+      font-size: 14px;
+      color: var(--text-gray);
+    }
+
+    /* Discount */
+    .discount {
+      padding: 120px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .discount-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0, 255, 136, 0.05), rgba(255, 51, 102, 0.05));
+    }
+
+    .discount-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--gray);
+      padding: 60px;
+      border-radius: 30px;
+      border: 2px solid var(--green);
+    }
+
+    .discount-badge {
+      display: inline-block;
+      background: var(--red);
+      color: var(--white);
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 18px;
+      margin-bottom: 25px;
+      animation: pulse 2s ease infinite;
+    }
+
+    .discount-title {
+      font-size: 48px;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .discount-desc {
+      font-size: 18px;
+      color: var(--text-gray);
+      margin-bottom: 35px;
+    }
+
+    .discount-timer {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .timer-box {
+      background: var(--black);
+      padding: 20px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .timer-number {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--green);
+      margin-bottom: 8px;
+    }
+
+    .timer-label {
+      font-size: 14px;
+      color: var(--text-gray);
+    }
+
+    /* Portfolio */
+    .portfolio {
+      padding: 120px 0;
+      background: var(--gray);
+    }
+
+    .portfolio-swiper {
+      padding: 40px 0 60px;
+    }
+
+    .portfolio-item {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      cursor: pointer;
+      height: 400px;
+    }
+
+    .portfolio-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .portfolio-item:hover .portfolio-img {
+      transform: scale(1.1);
+    }
+
+    .portfolio-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.9) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 40px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .portfolio-item:hover .portfolio-overlay {
+      opacity: 1;
+    }
+
+    .portfolio-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .portfolio-desc {
+      font-size: 16px;
+      color: var(--text-gray);
+      margin-bottom: 20px;
+    }
+
+    .portfolio-btn {
+      background: var(--green);
+      color: var(--black);
+      border: none;
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-weight: 700;
+      cursor: pointer;
+      align-self: flex-start;
+      transition: all 0.3s ease;
+    }
+
+    .portfolio-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+    }
+
+    /* Contact */
+    .contact {
+      padding: 120px 0;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .contact-item {
+      display: flex;
+      gap: 20px;
+      padding: 25px;
+      background: var(--gray);
+      border-radius: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .contact-item:hover {
+      transform: translateX(10px);
+      border-left: 4px solid var(--green);
+    }
+
+    .contact-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--green), #00cc70);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+
+    .contact-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .contact-text {
+      font-size: 15px;
+      color: var(--text-gray);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-link {
+      width: 50px;
+      height: 50px;
+      background: var(--gray);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .social-link:hover {
+      background: var(--green);
+      transform: translateY(-5px);
+    }
+
+    .map-wrapper {
+      width: 50px;
+      height: 50px;
+      border-radius: 20px;
+     margin-top: 0px;
+
+    }
+
+    
+
+    .contact-form {
+      background: var(--gray);
+      padding: 40px;
+      border-radius: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      padding: 16px 20px;
+      background: var(--black);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      color: var(--white);
+      font-size: 15px;
+      font-family: inherit;
+      transition: all 0.3s ease;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--green);
+      box-shadow: 0 0 0 4px rgba(0, 255, 136, 0.1);
+    }
+
+    .form-textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--green), #00cc70);
+      color: var(--black);
+      padding: 16px;
+      border: none;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(0, 255, 136, 0.4);
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--gray);
+      padding: 60px 0 30px;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 40px;
+    }
+
+    .footer-logo-section {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .footer-desc {
+      font-size: 15px;
+      color: var(--text-gray);
+      line-height: 1.7;
+    }
+
+    .footer-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-link {
+      color: var(--text-gray);
+      text-decoration: none;
+      font-size: 15px;
+      transition: all 0.3s ease;
+    }
+
+    .footer-link:hover {
+      color: var(--green);
+      padding-left: 10px;
+    }
+
+    .footer-bottom {
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      text-align: center;
+      color: var(--text-gray);
+      font-size: 14px;
+    }
+
+    /* Swiper Custom */
+    .swiper-button-next,
+    .swiper-button-prev {
+      width: 50px;
+      height: 50px;
+      background: var(--gray);
+      border-radius: 50%;
+    }
+
+    .swiper-button-next:after,
+    .swiper-button-prev:after {
+      font-size: 20px;
+      color: var(--green);
+      font-weight: 800;
+    }
+
+    .swiper-pagination-bullet {
+      width: 12px;
+      height: 12px;
+      background: var(--green);
+      opacity: 0.3;
+    }
+
+    .swiper-pagination-bullet-active {
+      opacity: 1;
+      width: 30px;
+      border-radius: 6px;
+    }
+
+    /* Animations */
+    [data-anim] {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.8s ease;
+    }
+
+    [data-anim].show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media(max-width: 1024px) {
+      .hero-grid,
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .why-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .students-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media(max-width: 768px) {
+      .menu {
+        position: absolute;
+        top: 80px;
+        right: 0;
+        background: rgba(10, 10, 10, 0.98);
+        backdrop-filter: blur(20px);
+        width: 250px;
+        height: 0;
+        overflow: hidden;
+        flex-direction: column;
+        padding: 0;
+        gap: 0;
+        transition: height 0.4s ease;
+        border-bottom-left-radius: 20px;
+      }
+
+      .menu.open {
+        height: 400px;
+        padding: 30px 0;
+        gap: 20px;
+      }
+
+      .burger {
+        display: flex;
+      }
+
+      .hero-title {
+        font-size: 38px;
+      }
+
+      .section-title {
+        font-size: 36px;
+      }
+
+      .hero-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .students-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .discount-timer {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Scroll Progress -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <div class="logo-wrapper">
+          <div class="logo-wrapper">
+            <div class="logo-img" >
+             
+        
+
+        
+
+        <button class="burger" id="burger" aria-expanded="false">
+          <span></span><span></span><span></span>
+        
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="hero" class="hero">
+    <div class="hero-bg"></div>
+    <div class="container">
+      <div class="hero-grid">
+        <div data-anim>
+          
+          <h1 class="hero-title">
+            Ilhomjon Ibrohimov <span class="gradient-text">3J</span> Shogirtlik Dasturi
+          </h1>
+          <p class="hero-desc">
+            
+            <br>
+
+            3J maqsadi: Trading sohasini aynan joiz 🌙 yo’llar bilan o’rganib shogirdlar bilan jamoaviy ishlash
+          </p>
+          <div class="hero-buttons">
+            <button class="btn-primary" 
+            onclick="location.href='#why'">Malumot</button>
+            <button class="btn-secondary" onclick="location.href='#contact' ">Boglanish
+            </button>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-box">
+              <div class="stat-number counter" data-count="300+">0</div>
+              <div class="stat-label">O'quvchilar</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number counter" data-count="70">0</div>
+              <div class="stat-label">Muvaffaqiyat %</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number counter" data-count="50">0</div>
+              <div class="stat-label">M+ Foyda</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-image" data-anim>
+          <img class="hero-img" src="IMG_3151.JPG" alt="Trading">
+          <div class="trading-card card-1">
+            <div class="card-title">Bugungi foyda</div>
+            <div class="card-value">+$50</div>
+          </div>
+          <div class="trading-card card-2">
+            <div class="card-title">Aktiv treyderlar</div>
+            <div class="card-value">150+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  
+
+  <!-- Why Us -->
+  <section id="why" class="why-us">
+    <div class="container">
+      <div class="section-header" data-anim>
+        <h2 class="section-title">Nega aynan bu 3J dasturi</h2>
+        <p class="section-subtitle">Bizni tanlashning 10 ta asosiy sababi</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card" data-anim>
+          <div class="why-number">01</div>
+          <h3 class="why-title">O’rganadigan yo’nalishlarimiz</h3>
+          <p class="why-desc">- Kriptovalyuta 
+            -Aksiya yo’nalishi 
+            </p>
+        </div>
+        <div class="why-card" data-anim>
+          <div class="why-number">02</div>
+          <h3 class="why-title">Amaliy Mashg'ulotlar</h3>
+          <p class="why-desc">Nazariy bilimdan tashqari, real bozorda amaliy tajriba orqali o'rganasiz</p>
+        </div>
+        <div class="why-card" data-anim>
+          <div class="why-number">03</div>
+          <h3 class="why-title">Dasturda nimalarni o’rganasiz?</h3>
+          <p class="why-desc">- 📊tradingni 0dan boshlab professional darajagacha o’rganish</p>
+        </div>
+        <div class="why-card" data-anim>
+          <div class="why-number">04</div>
+          <h3 class="why-title">Real strategiyalar>
+          <p class="why-desc">- 40 ta Grafik strategiyalar bilan mustahkamlash  📉</p>
+        </div>
+        <div class="why-card" data-anim>
+          <div class="why-number">05</div>
+          <h3 class="why-title"> Tekinga online Darslik</h3>
+          <p class="why-desc">Siz you tube sahifamizdan aynan bizning campaniyamiz asos chisi Ilhomjon Ibrohimov boshchiligida  10 ta darslar pleys uslubda joylashtirilgan </p>
+        </div>
+        <div class="why-card" data-anim>
+          <div class="why-number">06</div>
+          <h3 class="why-title">Telegram kanalimiz</h3>
+          <p class="why-desc">Biz ozimizni natijalarimiz va signallar bilan togri ishlashni boshlang </p>
+        </div>
+        <div class="why-card" data-anim>
+          <div class="why-number">07</div>
+          <h3 class="why-title">Men qanday insonlarni shogird qilib olaman? </h3>
+          <p class="why-desc">
+            O’z ustida ishlaydigan, Berilgan vazifalarni vaqtida bajaradigan, hayotini rostdan ham moliyaviy Erkinlikka olib chiqmoqchi bo’lgan shogirdlar kerak. Tradinga jiddiy qaramasdan faqat onson pul topish maqsadida o’rganmoqchi bo’lgan odamlar qiziq emas. </p>
+        </div>
+        <div class="why-card" data-anim>
+          <div class="why-number">08</div>
+          <h3 class="why-title">Dastur ustunligi nimada?</h3>
+          <p class="why-desc"> O’rtacha 3000$ bilimni 3 barabor arzonga olasiz chunki bu yerda maqsad sizga faqat kurs sotish emas maqsad jamoa yig’ish va birgalikda ishlash shuning uchun dasturdan so‘ng doimiy aloqa saqlanib qoladi. </p>
+        </div>
+        <div class="why-card" data-anim>
+          <div class="why-number">09</div>
+          <h3 class="why-title">Dastur ustunligi nimada?</h3>
+          <p class="why-desc">-Aynan bu dasturda darslarni boshqa mentor emas shaxsan o’zim o’taman 📚
+             </p>
+        </div>
+        <div class="why-card" data-anim>
+          <div class="why-number">10</div>
+          <h3 class="why-title">Nega suhbat bilan olaman?</h3>
+          <p class="why-desc">
+            Sababi 10ta odam ushbu dasturda o’qitiladi va ular bilan songa emas sifatga ishlanadi  </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+
+  
+
+  <!-- Contact -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <div class="section-header" data-anim>
+        <h2 class="section-title">Biz bilan bog'laning</h2>
+        <p class="section-subtitle">Savollaringizga javob berishga tayyormiz</p>
+      </div>
+      <div class="contact-grid">
+        <div data-anim>
+          <div class="contact-info">
+            <div class="contact-item">
+              <div class="contact-icon">📷</div>
+              <div>
+                <div class="contact-title">Instagram </div>
+                <div class="contact-text"> instagram sahifamizga yol
+                  
+                </div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">📱</div>
+              <div>
+                <div class="contact-title">Telefon</div>
+                <div class="contact-text">+998 90 123 45 67</div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">📍</div>
+              <div>
+                <div class="contact-title">Manzil</div>
+                <div class="contact-text">Bogu bo'ston 186 </div>
+                
+              </div>
+            </div>
+          </div>
+          <div class="social-links">
+   
+            <a href="https://www.youtube.com/@ilhomjonibrokhimov" class="social-link" title="YouTube">▶️</a>
+            <a href="https://www.instagram.com/ilhomjonibrokhimov/" class="social-link" title="Instagram">📷</a>
+           
+          </div>
+          <div class="map-wrapper">
+           
+          </div>
+        </div>
+        <div class="contact-form" data-anim>
+          <form id="contactForm">
+            <div class="form-group">
+              <label class="form-label">Ismingiz</label>
+              <input type="text" class="form-input" placeholder="Ismingizni kiriting" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Manzilingiz</label>
+              <input type="email" class="form-input" placeholder="shaxar/viloyat" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Telefon  Raqamaningiz</label>
+              <input type="tel" class="form-input" placeholder="+998 90 123 45 67" required>
+            </div>
+            
+            <button type="submit" class="submit-btn">Yuborish</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ 
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+  <script>
+    // Burger menu
+    const burger = document.getElementById('burger');
+    const menu = document.getElementById('menu');
+    burger?.addEventListener('click', () => {
+      const expanded = burger.getAttribute('aria-expanded') === 'true';
+      burger.setAttribute('aria-expanded', String(!expanded));
+      menu.classList.toggle('open');
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const href = a.getAttribute('href');
+        if (!href || href === '#') return;
+        const target = document.querySelector(href);
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+        if (menu?.classList.contains('open')) {
+          menu.classList.remove('open');
+          burger?.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+
+    // Scroll progress
+    const progress = document.getElementById('scrollProgress');
+    const updateProgress = () => {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      const p = h ? (window.scrollY / h) * 100 : 0;
+      progress.style.width = p + '%';
+    };
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    // Animations
+    const animated = document.querySelectorAll('[data-anim]');
+    const animObs = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          en.target.classList.add('show');
+          animObs.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    animated.forEach(n => animObs.observe(n));
+
+    // Counters
+    const counters = document.querySelectorAll('.counter');
+    const cntObs = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (!en.isIntersecting) return;
+        const el = en.target;
+        const to = parseInt(el.dataset.count || '0', 10);
+        const dur = 2000;
+        const start = performance.now();
+        (function step(now) {
+          const t = Math.min(1, (now - start) / dur);
+          const easeOut = 1 - Math.pow(1 - t, 3);
+          el.textContent = Math.floor(to * easeOut);
+          if (t < 1) requestAnimationFrame(step);
+        })(start);
+        cntObs.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(c => cntObs.observe(c));
+
+    // Swiper
+    if (typeof Swiper !== 'undefined') {
+      new Swiper('.swiper', {
+        loop: true,
+        speed: 800,
+        autoplay: { delay: 4000 },
+        pagination: { el: '.swiper-pagination', clickable: true },
+        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }
+      });
+    }
+
+    // Countdown timer
+    let timeLeft = 12 * 3600 + 34 * 60 + 56;
+    setInterval(() => {
+      if (timeLeft <= 0) return;
+      timeLeft--;
+      const h = Math.floor(timeLeft / 3600);
+      const m = Math.floor((timeLeft % 3600) / 60);
+      const s = timeLeft % 60;
+      document.getElementById('hours').textContent = h.toString().padStart(2, '0');
+      document.getElementById('minutes').textContent = m.toString().padStart(2, '0');
+      document.getElementById('seconds').textContent = s.toString().padStart(2, '0');
+    }, 1000);
+
+    // Form submission
+    document.getElementById('contactForm')?.addEventListener('submit', e => {
+      e.preventDefault();
+      alert('✅ Xabaringiz muvaffaqiyatli yuborildi! Tez orada siz bilan bog\'lanamiz.');
+      e.target.reset();
+    });
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    console.log('🚀 Impulse Invest sayt muvaffaqiyatli yuklandi!');
+  </script>
+</body>
+</html>
